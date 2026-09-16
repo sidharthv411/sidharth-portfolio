@@ -487,6 +487,10 @@ function ProjectCard({ project }: { project: Project }) {
     el.style.setProperty("--y", `${e.clientY - rect.top}px`);
   }
 
+  function setCardRef(element: HTMLElement | null) {
+    cardRef.current = element;
+  }
+
   const glow = (
     <span
       aria-hidden="true"
@@ -546,7 +550,7 @@ function ProjectCard({ project }: { project: Project }) {
     <motion.div variants={fadeUp} whileHover={{ y: -4 }} className="h-full">
       {link ? (
         <a
-          ref={cardRef as React.RefObject<HTMLElement>}
+          ref={setCardRef}
           href={link}
           target="_blank"
           rel="noopener noreferrer"
@@ -557,11 +561,7 @@ function ProjectCard({ project }: { project: Project }) {
           {inner}
         </a>
       ) : (
-        <article
-          ref={cardRef as React.RefObject<HTMLElement>}
-          onMouseMove={handleMove}
-          className={shell}
-        >
+        <article ref={setCardRef} onMouseMove={handleMove} className={shell}>
           {glow}
           {inner}
         </article>
